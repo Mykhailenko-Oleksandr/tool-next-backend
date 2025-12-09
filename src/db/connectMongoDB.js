@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Note } from '../models/note.js';
+import { Note } from '../models/tool.js';
 
 export const connectMongoDB = async () => {
   try {
@@ -7,6 +7,9 @@ export const connectMongoDB = async () => {
     await mongoose.connect(mongoUrl);
     console.log('✅ MongoDB connection established successfully');
 
+    /*
+    Треба буде видалити перед деплоєм
+    */
     await Note.syncIndexes();
     console.log('Indexes synced successfully');
   } catch (error) {
