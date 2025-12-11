@@ -23,12 +23,7 @@ export const registerUser = async (req, res) => {
   const session = await createSession(newUser._id);
   setSessionCookies(res, session);
 
-  res.status(201).json({
-    id: newUser._id,
-    name: newUser.name,
-    email: newUser.email,
-    avatarUrl: newUser.avatarUrl,
-  });
+  res.status(201).json({ newUser });
 };
 
 export const loginUser = async (req, res) => {
@@ -62,9 +57,9 @@ export const logoutUser = async (req, res) => {
     await Session.deleteOne({ _id: sessionId });
   }
 
-  res.clearCookies('sessionId');
-  res.clearCookies('accessToken');
-  res.clearCookies('refreshToken');
+  res.clearCookie('sessionId');
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
 
   res.status(204).send();
 };
