@@ -9,34 +9,37 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+//  VVV Потребує виправлень
 export async function saveFileToCloudinary(req, res, next) {
-    if (!req.file || !req.file.buffer) {
-        return res.status(400).json({ message: 'Будь ласка, авантажте зображення' });
-    }
+  if (!req.file || !req.file.buffer) {
+    return res
+      .status(400)
+      .json({ message: 'Будь ласка, завантажте зображення' });
+  }
 
-    const buffer = req.file.buffer;
-    try {
-        const result = await new Promise((resolve, reject) => {
-            const uploadStream = cloudinary.uploader.upload_stream(
-                {
-                    folder: 'tool-images',
-                    resource_type: 'image',
-                    overwrite: true,
-                    unique_filename: true,
-                    use_filename: false,
-                },
-                (err, result) => (err ? reject(err) : resolve(result)),
-            );
-            Readable.from(buffer).pipe(uploadStream);
-        });
+  const buffer = req.file.buffer;
+  try {
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'tool-next-app/tools',
+          resource_type: 'image',
+          overwrite: true,
+          unique_filename: true,
+          use_filename: false,
+        },
+        (err, result) => (err ? reject(err) : resolve(result)),
+      );
+      Readable.from(buffer).pipe(uploadStream);
+    });
 
+    req.body.images = result.secure_url;
 
-        req.body.images = result.secure_url;
-
-        next();
-
-    } catch (error) {
-        console.error('Cloudinary Upload Error:', error);
-        return res.status(500).json({ message: 'Не вдалося завантажити зображення' });
-    }
+    next();
+  } catch (error) {
+    console.error('Cloudinary Upload Error:', error);
+    return res
+      .status(500)
+      .json({ message: 'Не вдалося завантажити зображення' });
+  }
 }

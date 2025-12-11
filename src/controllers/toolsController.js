@@ -1,7 +1,6 @@
 import { Tool } from '../models/tool.js';
 import createHttpError from 'http-errors';
 
-
 export const getToolById = async (req, res) => {
   const { toolId } = req.params;
 
@@ -26,9 +25,9 @@ export const deleteTool = async (req, res) => {
   }
 
   res.status(200).json(tool);
-
 };
 
+//  VVV Потребує виправлень
 export const updateTool = async (req, res) => {
   const { toolId } = req.params;
 
@@ -36,8 +35,8 @@ export const updateTool = async (req, res) => {
     { _id: toolId, userId: req.user._id },
     req.body,
     {
-      new: true
-    }
+      new: true,
+    },
   );
 
   if (!updatedTool) {
@@ -46,6 +45,6 @@ export const updateTool = async (req, res) => {
 
   res.status(200).json({
     message: 'Інструмент успішно оновлено.',
-    tool: updatedTool
+    tool: updatedTool,
   });
 };
