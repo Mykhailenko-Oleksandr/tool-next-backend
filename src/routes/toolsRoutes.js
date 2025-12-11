@@ -9,8 +9,8 @@ const router = Router();
 router.get('/api/tools/:toolId', celebrate(toolIdSchema), getToolById);
 router.delete(
   '/api/tools/:toolId',
-  celebrate(toolIdSchema),
   authenticate,
+  celebrate(toolIdSchema),
   deleteTool,
 );
 

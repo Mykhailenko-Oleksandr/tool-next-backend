@@ -17,7 +17,7 @@ export const deleteTool = async (req, res) => {
   const { toolId } = req.params;
   const tool = await Tool.findOneAndDelete({
     _id: toolId,
-    userId: req.user._id,
+    owner: req.user._id,
   });
 
   if (!tool) {
