@@ -19,25 +19,27 @@ export const getToolById = async (req, res, next) => {
 
 // ПРИВАТНИЙ — Створення нового оголошення інструменту
 export const createTool = async (req, res, next) => {
-  try {
-    const { title, description, price, category, location } = req.body;
+  const { title, description, price, category } = req.body;
 
-    const owner = req.user._id; 
-
-    const tool = await Tool.create({
-      title,
-      description,
-      price,
-      category,
-      location,
-      owner,
-    });
-
-    res.status(201).json({
-      message: 'Tool created successfully',
-      tool,
-    });
-  } catch (error) {
-    next(createHttpError(500, error.message));
+  if (
+    !title ||
+    !description ||
+    !price ||
+    typeof title !== 'string' ||
+    typeof description !== 'string' ||
+    typeof price !== 'number' ||
+    (category && typeof category !== 'string')
+  ) {
+    return res.status(400).json({ message: 'Invalid data' });
   }
+
+  const newTool = await Tool.create({
+    title,
+    description,
+    price,
+    category: category || null,
+    owner: req.user._id, 
+  });
+
+  res.status(201).json(newTool);
 };
