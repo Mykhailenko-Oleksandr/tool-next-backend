@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import { Segments } from 'celebrate';
+
+import { Joi, Segments } from 'celebrate';
 import { isValidObjectId } from 'mongoose';
 
 const objectIdValidator = (value, helpers) => {
@@ -11,6 +11,7 @@ export const toolIdSchema = {
     toolId: Joi.string().custom(objectIdValidator).required(),
   }),
 };
+
 export const updateToolSchema = {
   ...toolIdSchema,
   [Segments.BODY]: Joi.object({
@@ -24,3 +25,4 @@ export const updateToolSchema = {
   })
   .min(1),
 };
+
