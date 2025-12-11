@@ -20,9 +20,7 @@ export const updateToolSchema = {
     categoryId: Joi.string().custom(objectIdValidator),
     description: Joi.string().min(20).max(2000).trim(),
     rentalTerms: Joi.string().min(20).max(1000).trim(),
-    specifications: Joi.string().max(1000).trim(),
-    images: Joi.string().uri().required()
+    specifications: Joi.string().max(1000).trim()
   })
-  .min(1),
 };
 
