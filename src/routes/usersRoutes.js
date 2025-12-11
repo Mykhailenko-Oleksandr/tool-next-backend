@@ -10,6 +10,6 @@ import { userIdSchema } from '../validations/usersValidation.js';
 const router = Router();
 
 router.get('/api/users/:userId', celebrate(userIdSchema), getPublicUserById);
-router.get('/api/users/:userId/tools', getUserTools);
+router.get('/api/users/:userId/tools', celebrate(userIdSchema), getUserTools);
 
 export default router;

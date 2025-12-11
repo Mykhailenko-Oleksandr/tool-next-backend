@@ -28,7 +28,7 @@ export const getUserTools = async (req, res) => {
 
   res.status(200).json({
     user,
-    count: tools.length,
+    countTools: tools.length,
     tools,
   });
 };
