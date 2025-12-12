@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { celebrate } from 'celebrate';
 import { upload } from '../middleware/multer.js';
 import { authenticate } from '../middleware/authenticate.js';
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import {
   deleteTool,
   getToolById,
@@ -26,8 +25,7 @@ router.delete(
 router.patch(
   '/api/tools/:toolId',
   authenticate,
-  upload.single('images'),
-  saveFileToCloudinary,
+  upload.single('image'),
   celebrate(updateToolSchema),
   updateTool,
 );
