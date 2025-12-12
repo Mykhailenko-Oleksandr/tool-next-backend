@@ -12,10 +12,13 @@ import { authenticate } from '../middleware/authenticate.js'; // твій гот
 
 const router = Router();
 
+// новий приватний ендпоінт
+router.get('/api/users/me', authenticate, getCurrentUser);
+
 router.get('/api/users/:userId', celebrate(userIdSchema), getPublicUserById);
 router.get('/api/users/:userId/tools', celebrate(userIdSchema), getUserTools);
 
-// новий приватний ендпоінт
-router.get('/api/users/me', authenticate, getCurrentUser);
+// // новий приватний ендпоінт
+// router.get('/api/users/me', authenticate, getCurrentUser);
 
 export default router;
