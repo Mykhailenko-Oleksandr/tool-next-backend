@@ -11,7 +11,6 @@ const options = {
     servers: [
       {
         url: 'https://tool-next-backend.onrender.com/',
-        description: 'Development server',
       },
     ],
     components: {
