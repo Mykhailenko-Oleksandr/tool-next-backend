@@ -25,7 +25,7 @@ export const createTool = async (req, res, next) => {
     title,
     description,
     price,
-    category: category || null,
+    category,
     owner: req.user._id, 
   });
 
