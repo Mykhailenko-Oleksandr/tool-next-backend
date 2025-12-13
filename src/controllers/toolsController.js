@@ -14,7 +14,8 @@ export const getAllTools = async (req, res) => {
   }
 
   if (category) {
-    toolsQuery.where('category').in(category);
+    const categories = category.split(',');
+    toolsQuery.where('category').in(categories);
   }
 
   const [totalTools, tools] = await Promise.all([

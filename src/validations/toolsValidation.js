@@ -2,7 +2,15 @@ import { Joi, Segments } from 'celebrate';
 import { isValidObjectId } from 'mongoose';
 
 const objectIdValidator = (value, helpers) => {
-  return !isValidObjectId(value) ? helpers.message('Invalid id format') : value;
+  const ids = value.split(',');
+
+  for (const id of ids) {
+    if (!isValidObjectId(id)) {
+      return helpers.message('Invalid id format');
+    }
+  }
+
+  return value;
 };
 
 export const toolIdSchema = {
