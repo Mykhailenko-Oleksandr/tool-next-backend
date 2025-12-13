@@ -7,17 +7,20 @@ import {
   getToolById,
   updateTool,
   getAllTools,
+  createTool,
 } from '../controllers/toolsController.js';
 import {
   getToolSchema,
   toolIdSchema,
   updateToolSchema,
+  createToolSchema,
 } from '../validations/toolsValidation.js';
 
 const router = Router();
 
 router.get('/api/tools', celebrate(getToolSchema), getAllTools);
 router.get('/api/tools/:toolId', celebrate(toolIdSchema), getToolById);
+router.post('/api/tools', authenticate, upload.single('image'), celebrate(createToolSchema), createTool);
 router.delete(
   '/api/tools/:toolId',
   authenticate,
@@ -32,5 +35,7 @@ router.patch(
   celebrate(updateToolSchema),
   updateTool,
 );
+
+
 
 export default router;

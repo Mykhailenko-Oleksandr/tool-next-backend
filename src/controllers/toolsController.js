@@ -92,3 +92,19 @@ export const updateTool = async (req, res) => {
     tool: updatedTool,
   });
 };
+
+// ПРИВАТНИЙ — Створення нового оголошення інструменту
+export const createTool = async (req, res, next) => {
+  const { title, description, price, category } = req.body;
+
+    const newTool = await Tool.create({
+    title,
+    description,
+    price,
+    category,
+    owner: req.user._id,
+    image: req.file ? req.file.path : null,
+  });
+
+  res.status(201).json(newTool);
+};
