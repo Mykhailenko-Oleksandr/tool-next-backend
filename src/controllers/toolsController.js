@@ -26,7 +26,8 @@ export const createTool = async (req, res, next) => {
     description,
     price,
     category,
-    owner: req.user._id, 
+    owner: req.user._id,
+    image: req.file ? req.file.path : null,
   });
 
   res.status(201).json(newTool);
